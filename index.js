@@ -1,15 +1,31 @@
-console.log("server is running");
-var express = require('express');
+var express = require("express");
 var app = express();
 app.listen(3000, listening);
 function listening() {
-    console.log("listening....");
-
+  console.log("listening on 3000");
+}
+var birds = {
+  "parrot": 20,
+  "eagle": 10,
+  "hen":100,
 };
- var flowers = ["tulip", "rose"];
-app.use(express.static('website'));
-app.get('/flowers', function (req, res) {
-   
-    res.send(flowers);
-});
+app.get('/all', allBirds);
+function allBirds(req, res) {
+  res.send(birds)
+};
+app.get('/add/:bird/:score?', addBirds);
+function addBirds(req, res) {
+  var data = req.params;
+  var bird = data.bird;
+  var score = data.score;
+  birds[bird] = score;
+  var message = {
+    msg: "thnak you",
+  };
+  res.send(message);
+}
+
+
+
+
 
